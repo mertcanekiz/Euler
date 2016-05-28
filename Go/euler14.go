@@ -1,3 +1,6 @@
+// Project Euler Problem 14
+// http://projecteuler.net/problem=14
+
 package main
 
 import (

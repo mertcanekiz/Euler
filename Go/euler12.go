@@ -1,3 +1,6 @@
+// Project Euler Problem 12
+// http://projecteuler.net/problem=12
+
 package main
 
 import (

@@ -1,3 +1,6 @@
+// Project Euler Problem 9
+// http://projecteuler.net/problem=9
+
 package main
 
 import (
