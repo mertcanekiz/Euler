@@ -65,7 +65,7 @@ func Euler() {
 
 		found := false
 		for _, sq := range squares {
-			if IsPrime(i - 2*sq, primes) {
+			if IsPrime(i-2*sq, primes) {
 				found = true
 				break
 			}
