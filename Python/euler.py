@@ -75,3 +75,13 @@ def product(iterable):
 
 def triangle(n):
     return n*(n+1)//2
+
+
+def choose(n, r):
+    result = 1
+
+    for i in range(1, r+1):
+        result *= (n - r + i)
+        result //= i
+
+    return result
