@@ -1,18 +1,16 @@
-# Project Euler Problem 2
-# https://projecteuler.net/problem=2
+from euler import timer, fib
 
-from euler import run, fib
 
-def euler():
-    limit = 4e6
+@timer
+def euler2():
     result = 0
-    current = 0
     i = 0
-    while current < limit:
+    current = 0
+    while current < 4e6:
         i += 1
         current = fib(i)
-        if current % 2 == 0:
-            result += current
+        if current % 2 == 0: result += current
     print(result)
 
-run(euler)
+
+euler2()

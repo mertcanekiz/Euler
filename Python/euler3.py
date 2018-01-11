@@ -1,10 +1,9 @@
-# Project Euler Problem 3
-# https://projecteuler.net/problem=3
+from euler import timer, largest_prime_factor, fib
 
-from euler import run, largest_prime_factor
 
-def euler():
-    number = 600851475143
-    print(largest_prime_factor(number))
+@timer
+def euler3():
+	print(largest_prime_factor(600851475143))
 
-run(euler)
+
+euler3()

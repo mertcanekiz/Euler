@@ -1,41 +1,77 @@
-import time
+from functools import wraps, lru_cache
+from math import gcd
+from time import time
 
-class memoize:
-    def __init__(self, f):
-        self.f = f
-        self.memo = {}
-    def __call__(self, *args):
-        if not args in self.memo:
-            self.memo[args] = self.f(*args)
-        return self.memo[args]
+def timer(func):
+    @wraps(func)
+    def wrap(*args, **kwargs):
+        start = time()
+        result = func(*args, **kwargs)
+        end = time()
+        print('%r took %2.4fs' % (func.__name__, end-start))
+        return result
+    return wrap
 
-def run(func):
-    start = time.time()
-    func()
-    end = time.time()
-    print("Elapsed time: %.4f ms" %((end-start)*1000))
-
-@memoize
+@lru_cache(maxsize=None)
 def fib(n):
     if n == 0:
         return 0
     if n == 1:
         return 1
     return fib(n-1) + fib(n-2)
+# def fib(n):
+# 	a, b = 0, 1
+# 	for i in range(n):
+# 		a, b = b, a+b
+# 	return a
 
 def largest_prime_factor(n):
-    number = n
     largest = 0
     counter = 2
-
-    while counter*counter <= number:
-        if number%counter == 0:
-            number //= counter
+    while counter*counter <= n:
+        if n%counter == 0:
+            n //= counter
             largest = counter
         else:
             counter += 1
 
-    if number > largest:
-        largest = number
+    if n > largest:
+        largest = n
 
     return largest
+
+
+def lcm(a, b):
+    return a // gcd(a, b) * b
+
+
+def isprime(n):
+    if n == 1:
+        return False
+    if n == 2 or n == 3:
+        return True
+    if n % 2 == 0:
+        return False
+    if n == 5 or n == 7:
+        return True
+    if n%3 == 0:
+        return False
+    f = 5
+    while f*f <= n:
+        if n%f == 0:
+            return False
+        if n%(f+2) == 0:
+            return False
+        f += 6
+    return True
+
+
+def product(iterable):
+    result = 1
+    for element in iterable:
+        result *= int(element)
+    return result
+
+
+def triangle(n):
+    return n*(n+1)//2
