@@ -11,8 +11,8 @@ def prime_streak(a, b):
 
 @timer
 def euler27():
-    print(max(((prime_streak(a, b), a * b) for a in range(-999, 1000)
-               for b in sieve.primerange(2, 1000)))[1])
+    print(max(((prime_streak(a, b), a * b) 
+               for b in sieve.primerange(2, 1000) for a in range(-b+2, 0, 2)))[1])
 
 
 euler27()
