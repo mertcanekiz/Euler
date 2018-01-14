@@ -2,15 +2,17 @@ from functools import wraps, lru_cache
 from math import gcd
 from time import time
 
+
 def timer(func):
     @wraps(func)
     def wrap(*args, **kwargs):
         start = time()
         result = func(*args, **kwargs)
         end = time()
-        print('%r took %2.4fs' % (func.__name__, end-start))
+        print('%r took %2.4fs' % (func.__name__, end - start))
         return result
     return wrap
+
 
 @lru_cache(maxsize=None)
 def fib(n):
@@ -18,18 +20,19 @@ def fib(n):
         return 0
     if n == 1:
         return 1
-    return fib(n-1) + fib(n-2)
+    return fib(n - 1) + fib(n - 2)
 # def fib(n):
 # 	a, b = 0, 1
 # 	for i in range(n):
 # 		a, b = b, a+b
 # 	return a
 
+
 def largest_prime_factor(n):
     largest = 0
     counter = 2
-    while counter*counter <= n:
-        if n%counter == 0:
+    while counter * counter <= n:
+        if n % counter == 0:
             n //= counter
             largest = counter
         else:
@@ -54,13 +57,13 @@ def isprime(n):
         return False
     if n == 5 or n == 7:
         return True
-    if n%3 == 0:
+    if n % 3 == 0:
         return False
     f = 5
-    while f*f <= n:
-        if n%f == 0:
+    while f * f <= n:
+        if n % f == 0:
             return False
-        if n%(f+2) == 0:
+        if n % (f + 2) == 0:
             return False
         f += 6
     return True
@@ -74,14 +77,19 @@ def product(iterable):
 
 
 def triangle(n):
-    return n*(n+1)//2
+    return n * (n + 1) // 2
 
 
 def choose(n, r):
     result = 1
 
-    for i in range(1, r+1):
+    for i in range(1, r + 1):
         result *= (n - r + i)
         result //= i
 
     return result
+
+
+def is_pandigital(n, s=9):
+    n = str(n)
+    return len(n) == s and not '1234567890'[:s].strip(n)
