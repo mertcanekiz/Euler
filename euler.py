@@ -90,6 +90,7 @@ def choose(n, r):
     return result
 
 
-def is_pandigital(n, s=9):
+def is_pandigital(n):
     n = str(n)
-    return len(n) == s and not '1234567890'[:s].strip(n)
+    s = len(n)
+    return not '1234567890'[:s].strip(n)
