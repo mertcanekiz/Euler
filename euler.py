@@ -94,3 +94,7 @@ def is_pandigital(n):
     n = str(n)
     s = len(n)
     return not '1234567890'[:s].strip(n)
+
+
+def alphabetical_value(s):
+    return sum(ord(c) - ord('A') + 1 for c in str(s))
