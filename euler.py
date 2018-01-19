@@ -98,3 +98,7 @@ def is_pandigital(n):
 
 def alphabetical_value(s):
     return sum(ord(c) - ord('A') + 1 for c in str(s))
+
+
+def is_permutation(a, b):
+    return sorted(str(a)) == sorted(str(b))
