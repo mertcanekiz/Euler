@@ -1,6 +1,7 @@
 from functools import wraps, lru_cache
 from math import gcd, floor
 from time import time
+from sympy import factorint
 
 
 def timer(func):
@@ -137,3 +138,12 @@ def convergent(n, frac):
         a, a0 = bn * a + a0, a
         b, b0 = bn * b + b0, b
     return a, b
+
+
+def totient(n):
+    if isprime(n):
+        return n - 1
+    result = n
+    for p in factorint(n).keys():
+        result *= (1 - 1 / p)
+    return result
