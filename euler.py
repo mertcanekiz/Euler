@@ -1,5 +1,5 @@
 from functools import wraps, lru_cache
-from math import gcd
+from math import gcd, floor
 from time import time
 
 
@@ -111,3 +111,29 @@ def is_permutation(*args):
 
 def concat(a, b):
     return int(str(a)+str(b))
+
+
+def continued_fraction(n):
+    if int(n**0.5) == n**0.5:
+        return [n]
+    m, d, a0 = 0, 1, floor(n**0.5)
+    a = a0
+    frac = [a0, []]
+    while a != 2 * a0:
+        m = d * a - m
+        d = (n - m**2) // d
+        a = (a0 + m) // d
+        frac[1].append(a)
+    return frac
+
+
+def convergent(n, frac):
+    a0 = 1
+    b0 = 0
+    a = frac[0]
+    b = 1
+    for i in range(n):
+        bn = frac[1][i % len(frac[1])]
+        a, a0 = bn * a + a0, a
+        b, b0 = bn * b + b0, b
+    return a, b
