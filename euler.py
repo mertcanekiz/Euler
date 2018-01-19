@@ -100,5 +100,10 @@ def alphabetical_value(s):
     return sum(ord(c) - ord('A') + 1 for c in str(s))
 
 
-def is_permutation(a, b):
-    return sorted(str(a)) == sorted(str(b))
+def is_permutation(*args):
+    args = iter(args)
+    try:
+        first = next(args)
+    except StopIteration:
+        return True
+    return all(sorted(str(first)) == sorted(str(rest)) for rest in args)
