@@ -4,6 +4,7 @@ from math import gcd, floor, ceil
 from fractions import Fraction
 
 
+@timer
 def euler():
     fracs = SortedSet()
     limit = 10**6
