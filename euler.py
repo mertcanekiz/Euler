@@ -107,3 +107,7 @@ def is_permutation(*args):
     except StopIteration:
         return True
     return all(sorted(str(first)) == sorted(str(rest)) for rest in args)
+
+
+def concat(a, b):
+    return int(str(a)+str(b))
