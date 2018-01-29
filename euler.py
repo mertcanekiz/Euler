@@ -111,7 +111,7 @@ def is_permutation(*args):
 
 
 def concat(a, b):
-    return int(str(a)+str(b))
+    return int(str(a) + str(b))
 
 
 def continued_fraction(n):
@@ -146,4 +146,57 @@ def totient(n):
     result = n
     for p in factorint(n).keys():
         result *= (1 - 1 / p)
+    return result
+
+
+def gen_pythagorean_triples(s):
+    mlimit = int((s // 2)**0.5)
+    for m in range(2, mlimit + 1):
+        if s // 2 % m == 0:
+            if m % 2 == 0:
+                k = m + 1
+            else:
+                k = m + 2
+            while k < 2 * m and k <= s // (2 * m):
+                if s // (2 * m) % k == 0 and gcd(k, m) == 1:
+                    d = 1 #s // 2 // (k * m)
+                    n = k - m
+                    a = d * (m * m - n * n)
+                    b = 2 * d * m * n
+                    c = d * (m * m + n * n)
+                    if a+b+c == s:
+                        yield a, b, c
+                k += 2
+
+
+def pentagonal(n):
+    return n*(3*n-1)//2
+
+
+@lru_cache(maxsize=None)
+def generalized_pentagonal(n):
+    if n == 0:
+        return pentagonal(0)
+    if n % 2 == 0:
+        return pentagonal(-n//2)
+    else:
+        return pentagonal(n//2+1)
+
+
+@lru_cache(maxsize=None)
+def partition(n):
+    if n < 0:
+        return 0
+    if n == 0:
+        return 1
+    result = 0
+    m = 0
+    penta = 0
+    while penta <= n:
+        m += 1
+        sign = -1 if (m-1) % 4 > 1 else 1
+        penta = generalized_pentagonal(m)
+        current = sign * partition(n - penta)
+        result += current
+        if current == 0: break
     return result
