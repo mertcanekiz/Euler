@@ -159,18 +159,18 @@ def gen_pythagorean_triples(s):
                 k = m + 2
             while k < 2 * m and k <= s // (2 * m):
                 if s // (2 * m) % k == 0 and gcd(k, m) == 1:
-                    d = 1 #s // 2 // (k * m)
+                    d = 1  # s // 2 // (k * m)
                     n = k - m
                     a = d * (m * m - n * n)
                     b = 2 * d * m * n
                     c = d * (m * m + n * n)
-                    if a+b+c == s:
+                    if a + b + c == s:
                         yield a, b, c
                 k += 2
 
 
 def pentagonal(n):
-    return n*(3*n-1)//2
+    return n * (3 * n - 1) // 2
 
 
 @lru_cache(maxsize=None)
@@ -178,9 +178,9 @@ def generalized_pentagonal(n):
     if n == 0:
         return pentagonal(0)
     if n % 2 == 0:
-        return pentagonal(-n//2)
+        return pentagonal(-n // 2)
     else:
-        return pentagonal(n//2+1)
+        return pentagonal(n // 2 + 1)
 
 
 @lru_cache(maxsize=None)
@@ -194,9 +194,27 @@ def partition(n):
     penta = 0
     while penta <= n:
         m += 1
-        sign = -1 if (m-1) % 4 > 1 else 1
+        sign = -1 if (m - 1) % 4 > 1 else 1
         penta = generalized_pentagonal(m)
         current = sign * partition(n - penta)
         result += current
-        if current == 0: break
+        if current == 0:
+            break
     return result
+
+
+def sopf(x):
+    """
+    Sum of prime factors of x
+    """
+    return sum(factorint(x).keys())
+
+
+@lru_cache(maxsize=None)
+def prime_partition(x):
+    """
+    Number of summations of primes that add up to x
+    """
+    if x == 1:
+        return 0
+    return (sopf(x) + sum(sopf(j) * prime_partition(x - j) for j in range(1, x))) // x
