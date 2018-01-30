@@ -218,3 +218,7 @@ def prime_partition(x):
     if x == 1:
         return 0
     return (sopf(x) + sum(sopf(j) * prime_partition(x - j) for j in range(1, x))) // x
+
+
+def issquare(n):
+    return int(n**0.5) == n**0.5
